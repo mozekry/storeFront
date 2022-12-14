@@ -8,16 +8,16 @@ This project contains End-Points for Store Front application
 - GRANT ALL PRIVILEGES ON DATABASE storefront_db_test TO storefront_user;
 
 > Application Ports:
-- Application Hoat >> http://localhost:3000/
+- Application Host >> http://localhost:3000/
 - Database Host >> http://localhost:5432/
 
 > Package Installation Instructions:
-- use -npm install- to install all dependencies 
+- use npm install to install all dependencies 
 
 > used scripts:
-    - npm run prettier >> apply prettier configurations 
-    - npm run start >> start localhost server 
-    - npm run test >> run unite tests
+- npm run prettier >> apply prettier configurations 
+- npm run start >> start localhost server 
+- npm run test >> run unite tests
 
 
 > Environment Variables:
