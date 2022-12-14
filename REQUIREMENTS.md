@@ -21,22 +21,47 @@ These are the notes from a meeting with the frontend developer that describe wha
 - [OPTIONAL] Completed Orders by user (args: user id)[token required]
 
 ## Data Shapes
-#### Product
--  id
-- name
-- price
-- [OPTIONAL] category
+#### products
+- id serial primary key,
+- name varchar(100),
+- price integer not null,
+- category varchar(100) null
 
-#### User
-- id
-- firstName
-- lastName
-- password
+#### users
+- id serial primary key,
+- firstName varchar(100),
+- lastName varchar(100),
+- password varchar(255)
 
-#### Orders
-- id
-- id of each product in the order
-- quantity of each product in the order
-- user_id
-- status of order (active or complete)
+#### orders
+-  id serial primary key,
+- name varchar(100) NULL
+- user_id BIGINT REFERENCES users(id),
+- status varchar(100), status of order (active or complete)
 
+#### order_products
+- id serial primary key,
+- quantity integer,
+- order_id bigint references orders(id),
+- product_id bigint references products(id)
+
+# End-point URLs:
+> Users Handler:
+- Request URL: GET /users >> get all users [token required]
+- Request URL: GET /users/:id >> get certain user [token required] 
+- Request URL: POST /users >> Create new user 
+- Request URL: POST /users/login >> get token 
+
+> Products Handler:
+- Request URL: GET /products >> get all products
+- Request URL: GET /products/:id >> get certain product 
+- Request URL: POST /products >> Create new Product [token required]
+- Request URL: GET /productsbycategory >> get products by category [token required]
+- Request URL: GET /products/popular >> get popular products [token required]
+
+> Orders Handler:
+- Request URL: GET /orders >> get all Orders 
+- Request URL: POST /orders >> Create new Order
+- Request URL: GET /orders/:id/products >> get Order by ID 
+- Request URL: GET /orders/users/:userid >> get orders for a certain user [token required]
+- Request URL: GET /orders/complete/users/:userid >> get completed Orders for a certain user [token required]

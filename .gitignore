@@ -3,7 +3,6 @@
 node_modules/
 dist/
 database.json
-REQUIREMENTS.md
 .env
 .prettierrc
 .eslintrc.json
