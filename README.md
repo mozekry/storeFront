@@ -14,9 +14,10 @@ This project contains End-Points for Store Front application
 > Package Installation Instructions:
 - use -npm install- to install all dependencies 
 
->used scripts:
-    >1- npm run prettier >> apply prettier configurations 
-    >2- npm run start >> start localhost server 
+> used scripts:
+    - npm run prettier >> apply prettier configurations 
+    - npm run start >> start localhost server 
+    - npm run test >> run unite tests
 
 
 > Environment Variables:
