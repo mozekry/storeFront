@@ -88,7 +88,9 @@ export class UserRepo {
             const user: user = result.rows[0];
             console.log('user', user);
 
-            if (bcrypt.compareSync(password + BCRYPT_PASSWORD, user.password!)) {
+            if (
+                bcrypt.compareSync(password + BCRYPT_PASSWORD, user.password!)
+            ) {
                 return user;
             }
         }
