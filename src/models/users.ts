@@ -9,7 +9,7 @@ export type user = {
     id?: number;
     firstname: string;
     lastname: string;
-    password: string;
+    password?: string;
 };
 export type userlogin = {
     firstName: string;
@@ -49,10 +49,10 @@ export class UserRepo {
     async create(b: user): Promise<user> {
         try {
             const sql =
-                'INSERT INTO USERS (firstName, lastName,password) VALUES($1, $2, $3) RETURNING firstName, lastName';
+                'INSERT INTO USERS (firstName, lastName,password) VALUES($1, $2, $3) RETURNING id, firstName, lastName';
 
             const hash = bcrypt.hashSync(
-                b.password + BCRYPT_PASSWORD,
+                b.password! + BCRYPT_PASSWORD,
                 parseInt(SALT_ROUNDS ?? '')
             );
             const conn = await client.connect();
@@ -88,7 +88,7 @@ export class UserRepo {
             const user: user = result.rows[0];
             console.log('user', user);
 
-            if (bcrypt.compareSync(password + BCRYPT_PASSWORD, user.password)) {
+            if (bcrypt.compareSync(password + BCRYPT_PASSWORD, user.password!)) {
                 return user;
             }
         }

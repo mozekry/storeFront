@@ -37,7 +37,7 @@ const getUserToken = async (req: Request, res: Response): Promise<void> => {
     const newUser: user | null = await store.authenticate(
         user.firstname,
         user.lastname,
-        user.password
+        user.password!
     );
     if (newUser) {
         const token = jwt.sign({ user: newUser }, TOKEN_SECRET ?? '');

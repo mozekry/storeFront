@@ -11,7 +11,7 @@ export class OrderStore {
     async index(): Promise<Orders[]> {
         try {
             const conn = await client.connect();
-            const sql = 'SELECT * FROM orders';
+            const sql = 'SELECT id,status,user_id::int,name FROM orders';
             const result = await conn.query(sql);
             conn.release();
             return result.rows;
@@ -21,7 +21,7 @@ export class OrderStore {
     }
     async show(id: number): Promise<Orders> {
         try {
-            const sql = 'SELECT * FROM orders WHERE id=($1)';
+            const sql = 'SELECT id,status,user_id::int,name  FROM orders WHERE id=($1)';
 
             const conn = await client.connect();
 
@@ -37,11 +37,11 @@ export class OrderStore {
     async create(b: Orders): Promise<Orders> {
         try {
             const sql =
-                'INSERT INTO orders (status, user_id,name) VALUES($1, $2,$3) RETURNING *';
+                'INSERT INTO orders (status, user_id,name) VALUES($1, $2,$3) RETURNING name,status,user_id::int';
 
             const conn = await client.connect();
             const result = await conn.query(sql, [b.status, b.user_id, b.name]);
-            const order = result.rows[0];
+            const order: Orders = result.rows[0];
             conn.release();
             return order;
         } catch (err) {
