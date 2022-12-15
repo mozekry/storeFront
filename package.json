@@ -7,7 +7,7 @@
     "start": "nodemon src/server.ts",
     "watch": "tsc-watch --esModuleInterop src/server.ts --outDir ./dist --onSuccess \"node ./dist/server.js\"",
     "jasmine": "jasmine",
-    "test":"npm run build  && cross-env ENV=test db-migrate --env dev up & jasmine & db-migrate db:drop dev",
+    "test": "npm run build  && cross-env ENV=test db-migrate --env dev up & jasmine & db-migrate db:drop dev",
     "tsc": "tsc",
     "build": "npx tsc",
     "prettier": "prettier --config .prettierrc \"src/**/*.ts\" --write"
@@ -33,12 +33,14 @@
     "@types/node": "^18.11.9",
     "@types/pg": "^8.6.5",
     "@types/prettier": "^2.7.1",
+    "@types/supertest": "^2.0.12",
     "cross-env": "^7.0.3",
     "jasmine": "^4.5.0",
     "jasmine-spec-reporter": "^7.0.0",
     "jasmine-ts": "^0.3.0",
     "nodemon": "^2.0.20",
     "prettier": "^2.8.1",
+    "supertest": "^6.3.3",
     "ts-node": "^8.10.2",
     "tsc-watch": "^5.0.3"
   }

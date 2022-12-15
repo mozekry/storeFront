@@ -5,13 +5,25 @@ import verifyAuthToken from '../services/auth';
 const store = new ProductStore();
 
 const index = async (_req: Request, res: Response): Promise<void> => {
-    const Order: Product[] = await store.index();
-    res.json(Order);
+    try {
+        const Order: Product[] = await store.index();
+        res.json(Order);
+    } catch (error) {
+        res.status(400);
+        res.json(error);
+    }
+  
 };
 
 const show = async (_req: Request, res: Response): Promise<void> => {
-    const product: Product = await store.show(parseInt(_req.params.id));
-    res.json(product);
+    try {
+        const product: Product = await store.show(parseInt(_req.params.id));
+        res.json(product);
+        
+    } catch (error) {
+        res.status(400);
+        res.json(error);
+    }
 };
 
 const create = async (req: Request, res: Response): Promise<void> => {
@@ -34,18 +46,31 @@ const getProductbyCategory = async (
     _req: Request,
     res: Response
 ): Promise<void> => {
-    const product: Product[] = await store.getProductByCategory(
-        _req.query.category?.toString()
-    );
-    res.json(product);
+    try {
+        const product: Product[] = await store.getProductByCategory(
+            _req.query.category?.toString()
+        );
+        res.json(product);
+        
+    } catch (error) {
+        res.status(400);
+        res.json(error);
+    }
+
 };
 
 const getPopularProduct = async (
     _req: Request,
     res: Response
 ): Promise<void> => {
-    const product: Product[] = await store.getPopularProduct();
-    res.json(product);
+    try {
+        const product: Product[] = await store.getPopularProduct();
+        res.json(product);
+    } catch (error) {
+        res.status(400);
+        res.json(error);
+    }
+
 };
 
 const product_routes = (app: express.Application) => {

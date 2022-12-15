@@ -5,8 +5,14 @@ import verifyAuthToken from '../services/auth';
 const store = new OrderStore();
 
 const index = async (_req: Request, res: Response): Promise<void> => {
-    const Order: Orders[] = await store.index();
-    res.json(Order);
+    try {
+        const Order: Orders[] = await store.index();
+        res.json(Order);
+    } catch (error) {
+        res.status(400);
+        res.json(error);
+    }
+   
 };
 
 const create = async (req: Request, res: Response): Promise<void> => {
@@ -71,9 +77,9 @@ const getCompletedOrderByUserID = async (
 };
 
 const orders_routes = (app: express.Application) => {
-    app.get('/orders', index);
-    app.post('/orders', create);
-    app.post('/orders/:id/products', addProductToOrder);
+    app.get('/orders',verifyAuthToken, index);
+    app.post('/orders',verifyAuthToken, create);
+    app.post('/orders/:id/products',verifyAuthToken, addProductToOrder);
     app.get('/orders/users/:userid', verifyAuthToken, getOrderByUserID);
     app.get(
         '/orders/complete/users/:userid',

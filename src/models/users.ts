@@ -80,20 +80,27 @@ export class UserRepo {
         lastName: string,
         password: string
     ): Promise<user | null> {
-        const conn = await client.connect();
-        const sql =
-            'select firstName,lastName, password FROM users WHERE firstName = ($1) and lastName = ($2)';
-        const result = await conn.query(sql, [firstName, lastName]);
-        if (result.rows.length) {
-            const user: user = result.rows[0];
-            console.log('user', user);
-
-            if (
-                bcrypt.compareSync(password + BCRYPT_PASSWORD, user.password!)
-            ) {
-                return user;
+        try {
+            const conn = await client.connect();
+            const sql =
+                'select firstName,lastName, password FROM users WHERE firstName = ($1) and lastName = ($2)';
+            const result = await conn.query(sql, [firstName, lastName]);
+            if (result.rows.length) {
+                const user: user = result.rows[0];
+                console.log('user', user);
+    
+                if (
+                    bcrypt.compareSync(password + BCRYPT_PASSWORD, user.password!)
+                ) {
+                    return user;
+                }
             }
+            return null;
+        } catch (error) {
+            throw new Error(
+                `Could not authenticate USER ${firstName} ${lastName}. Error: ${error}`
+            );
         }
-        return null;
+       
     }
 }
